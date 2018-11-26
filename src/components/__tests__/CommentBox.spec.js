@@ -17,21 +17,24 @@ it('should has a textarea input and a submit button', () => {
     expect(wrapper.find('button').length).toEqual(1)
 })
 
-it('should show the correct value when use type into some text', () => {
+// describe is used to organize test cases with the same setup in one test suite
+describe('test handlers', () => {
     const newCommentContent = 'new comment'
-    wrapper.find('textarea').simulate('change', {
-        target: { value: newCommentContent }
+    
+    beforeEach(() => {
+        wrapper.find('textarea').simulate('change', {
+            target: { value: newCommentContent }
+        })
+        wrapper.update()
     })
-    wrapper.update()
-    expect(wrapper.find('textarea').prop('value')).toEqual(newCommentContent)
-})
 
-it('should clear the textarea when submit the button', () => {
-    wrapper.find('textarea').simulate('change', {
-        target: { value: 'some text'}
+    it('should show the correct value when use type into some text', () => {
+        expect(wrapper.find('textarea').prop('value')).toEqual(newCommentContent)
     })
-    wrapper.update()
-    wrapper.find('form').simulate('submit')
-    wrapper.update()
-    expect(wrapper.find('textarea').prop('value')).toEqual('')
+    
+    it('should clear the textarea when submit the button', () => {
+        wrapper.find('form').simulate('submit')
+        wrapper.update()
+        expect(wrapper.find('textarea').prop('value')).toEqual('')
+    })
 })
