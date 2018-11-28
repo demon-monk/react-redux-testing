@@ -1,6 +1,6 @@
 import React, {PureComponent} from 'react'
 import {connect} from 'react-redux'
-import {saveComment} from 'actions'
+import {saveComment, fetchComments} from 'actions'
 
 class CommentBox extends PureComponent {
 
@@ -25,13 +25,16 @@ class CommentBox extends PureComponent {
     render () {
 
         return (
-            <form onSubmit={this.onSubmit}>
-                <h4>add comment</h4>
-                <textarea value={this.state.comment} onChange={this.onTextAreaChange} />
-                <button>Submit comment</button>
-            </form>
+            <div>
+                <form onSubmit={this.onSubmit}>
+                    <h4>add comment</h4>
+                    <textarea value={this.state.comment} onChange={this.onTextAreaChange} />
+                    <button>Submit comment</button>
+                </form>
+                <button onClick={this.props.fetchComments}>Fetch Comments</button>
+            </div>
         )
     }
 }
 
-export default connect(null, {saveComment})(CommentBox)
+export default connect(null, {saveComment, fetchComments})(CommentBox)
